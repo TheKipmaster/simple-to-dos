@@ -1,14 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
 
-import { Header } from './components/common';
-import TodoList from './components/TodoList';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import reducers from './reducers';
+import Router from './Router';
 
 const App = () => (
-  <View style={{ flex: 1 }}>
-    <Header title="To-Do List" />
-    <TodoList />
-  </View>
+  <Provider store={createStore(reducers)}>
+    <Router />
+  </Provider>
 );
 
 export default App;

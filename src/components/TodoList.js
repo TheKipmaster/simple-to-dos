@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, FlatList } from 'react-native';
 
-import { Card, CardItem } from './common';
+import { CardItem } from './common';
 
 class TodoList extends Component {
   renderItem({ item }) {
