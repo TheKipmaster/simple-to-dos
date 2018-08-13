@@ -10,7 +10,7 @@ import reducers from './reducers';
 
 const App = () => (
   <Provider store={createStore(reducers)}>
-    <View>
+    <View style={{ flex: 1 }}>
       <Header title="To-Do List" />
       <TodoList />
     </View>
