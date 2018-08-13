@@ -1,26 +1,22 @@
 import {
   CREATE,
-  TOGGLE
+  TOGGLE,
 } from '../actions/types';
 
-const INITIAL_STATE = [];
+const INITIAL_STATE = { 'Wash Dishes': false };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CREATE:
-      return [
+      return {
         ...state,
-        action.payload
-      ];
+        [action.payload]: false
+      };
     case TOGGLE: {
-      let array = state.find(task => task.name !== action.payload.name);
-      if (array === undefined) {
-        array = [];
-      }
-      return [
-        ...array,
-        { name: action.payload.name, completed: !action.payload.completed }
-      ];
+      return {
+        ...state,
+        [action.payload]: !state[action.payload]
+      };
     }
     default:
       return state;

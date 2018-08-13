@@ -1,7 +1,7 @@
 import {
   UPDATE,
   CREATE,
-  TOGGLE
+  TOGGLE,
 } from './types';
 
 export const taskUpdate = (payload) => ({

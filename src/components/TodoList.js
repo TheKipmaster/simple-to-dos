@@ -1,33 +1,38 @@
+import _ from 'underscore';
 import React, { Component } from 'react';
-import { Text, FlatList, CheckBox } from 'react-native';
+import { Text, ScrollView, CheckBox } from 'react-native';
 import { connect } from 'react-redux';
 
-import { CardItem } from './common';
+import { CardItem, Button } from './common';
 import TaskCreate from './TaskCreate';
-import { taskToggle } from '../actions';
+import { taskToggle, taskDelete } from '../actions';
 
 class TodoList extends Component {
-  renderItem({ item }) {
-    return (
-      <CardItem>
+  onButtonPress(task) {
+    this.props.taskDelete(task);
+  }
+
+  renderTodos() {
+    const todos = _.mapObject(this.props.todos, (completed, name) => (
+      <CardItem key={name}>
         <CheckBox
-          onValueChange={() => this.props.taskToggle(item)}
-          value={item.completed}
+          onValueChange={() => this.props.taskToggle(name)}
+          value={completed}
           style={styles.checkboxStyle}
         />
-        <Text style={{ fontSize: 20 }}>{item.name}</Text>
+        <Text style={{ fontSize: 20 }}>{name}</Text>
+        <Button onPress={this.onButtonPress.bind(this, name)}>Delete</Button>
       </CardItem>
-    );
+    ));
+    return _.values(todos);
   }
 
   render() {
     return (
-      <FlatList
-        ListHeaderComponent={TaskCreate}
-        data={this.props.todos}
-        renderItem={this.renderItem.bind(this)}
-        keyExtractor={(item, index) => item + index}
-      />
+      <ScrollView>
+        <TaskCreate />
+        {this.renderTodos()}
+      </ScrollView>
     );
   }
 }
@@ -43,4 +48,4 @@ const styles = {
   }
 };
 
-export default connect(mapStateToProps, { taskToggle })(TodoList);
+export default connect(mapStateToProps, { taskToggle, taskDelete })(TodoList);

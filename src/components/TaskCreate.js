@@ -7,7 +7,7 @@ import { taskCreate, taskUpdate } from '../actions';
 class TaskCreate extends Component {
   onButtonPress() {
     const { newTask } = this.props;
-    this.props.taskCreate({ name: newTask, completed: false });
+    this.props.taskCreate(newTask);
   }
 
   onTextChange(value) {
