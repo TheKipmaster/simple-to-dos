@@ -1,18 +1,24 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 
 import TodoList from './components/TodoList';
+import TaskCreate from './components/TaskCreate';
 
 const RouterComponent = () => (
   <Router>
     <Scene key='root'>
       <Scene
-        key='TodoList'
+        key='todoList'
         component={TodoList}
         title='To-Do List'
-        rightTitle=" +"
-        onRight={() => {}}
+        rightTitle="   +"
+        onRight={() => { Actions.taksCreate(); }}
         initial
+      />
+      <Scene
+        key='taksCreate'
+        component={TaskCreate}
+        title='New Task'
       />
     </Scene>
   </Router>
