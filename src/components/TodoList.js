@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
-import { CardItem, Input } from './common';
+import { CardItem } from './common';
 import TaskCreate from './TaskCreate';
 
 class TodoList extends Component {
@@ -10,18 +10,6 @@ class TodoList extends Component {
     return (
       <CardItem>
         <Text style={{ fontSize: 20 }}>{item.name}</Text>
-      </CardItem>
-    );
-  }
-
-  renderInput() {
-    return (
-      <CardItem>
-        <Input
-          placeholder='Add a new to-do'
-          onChangeText={this.onTextChange}
-          value={this.props.newTask}
-        />
       </CardItem>
     );
   }
