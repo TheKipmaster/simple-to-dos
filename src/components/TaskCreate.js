@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
 
 import TaskForm from './TaskForm';
 import { Card, CardItem, Button } from './common';
+import { taskCreate } from '../actions';
 
 class TaskCreate extends Component {
-  // onButtonPress() {
-  //   const { name } = this.props;
-  //
-  //   this.props.taskCreate({ name });
-  // }
+  onButtonPress() {
+    const { task, completed } = this.props;
+
+    this.props.taskCreate({ task, completed });
+    console.log(this.props);
+  }
 
   render() {
     return (
@@ -17,7 +20,7 @@ class TaskCreate extends Component {
         <Card>
           <TaskForm {...this.props} />
           <CardItem>
-            <Button onPress={() => {}}>
+            <Button onPress={this.onButtonPress.bind(this)}>
               Create
             </Button>
           </CardItem>
@@ -27,4 +30,10 @@ class TaskCreate extends Component {
   }
 }
 
-export default TaskCreate;
+const mapStateToProps = ({ form }) => {
+  const { task, completed } = form;
+
+  return ({ task, completed });
+};
+
+export default connect(mapStateToProps, { taskCreate })(TaskCreate);

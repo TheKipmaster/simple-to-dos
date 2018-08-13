@@ -8,7 +8,10 @@ export const taskUpdate = ({ prop, value }) => ({
   payload: { prop, value }
 });
 
-export const taskCreate = ({ prop, value }) => ({
-  type: CREATE,
-  payload: { prop, value }
-});
+export const taskCreate = (payload) => {
+  console.log(payload);
+  return ({
+    type: CREATE,
+    payload
+  });
+};
