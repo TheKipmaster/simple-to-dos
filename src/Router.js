@@ -11,7 +11,6 @@ const RouterComponent = () => (
         key='todoList'
         component={TodoList}
         title='To-Do List'
-        rightTitle="   +"
         onRight={() => { Actions.taksCreate(); }}
         initial
       />

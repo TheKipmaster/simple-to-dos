@@ -3,15 +3,12 @@ import {
   CREATE
 } from './types';
 
-export const taskUpdate = ({ prop, value }) => ({
+export const taskUpdate = (payload) => ({
   type: UPDATE,
-  payload: { prop, value }
+  payload
 });
 
-export const taskCreate = (payload) => {
-  console.log(payload);
-  return ({
-    type: CREATE,
-    payload
-  });
-};
+export const taskCreate = (payload) => ({
+  type: CREATE,
+  payload
+});

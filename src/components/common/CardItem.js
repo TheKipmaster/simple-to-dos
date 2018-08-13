@@ -15,6 +15,7 @@ const styles = {
     backgroundColor: '#fff',
 
     justifyContent: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'row',
     position: 'relative'
   }

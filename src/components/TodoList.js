@@ -2,13 +2,26 @@ import React, { Component } from 'react';
 import { Text, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
-import { CardItem } from './common';
+import { CardItem, Input } from './common';
+import TaskCreate from './TaskCreate';
 
 class TodoList extends Component {
   renderItem({ item }) {
     return (
       <CardItem>
-        <Text style={{ fontSize: 20 }}>{item.task}</Text>
+        <Text style={{ fontSize: 20 }}>{item.name}</Text>
+      </CardItem>
+    );
+  }
+
+  renderInput() {
+    return (
+      <CardItem>
+        <Input
+          placeholder='Add a new to-do'
+          onChangeText={this.onTextChange}
+          value={this.props.newTask}
+        />
       </CardItem>
     );
   }
@@ -16,6 +29,7 @@ class TodoList extends Component {
   render() {
     return (
       <FlatList
+        ListHeaderComponent={TaskCreate}
         data={this.props.todos}
         renderItem={this.renderItem}
         keyExtractor={(item, index) => item + index}
@@ -25,7 +39,6 @@ class TodoList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   const { todos } = state;
   return ({ todos });
 };

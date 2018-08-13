@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { connect } from 'react-redux';
 
-import TaskForm from './TaskForm';
-import { Card, CardItem, Button } from './common';
-import { taskCreate } from '../actions';
+import { CardItem, Button, Input } from './common';
+import { taskCreate, taskUpdate } from '../actions';
 
 class TaskCreate extends Component {
   onButtonPress() {
-    const { task, completed } = this.props;
+    const { newTask } = this.props;
+    this.props.taskCreate({ name: newTask, completed: false });
+  }
 
-    this.props.taskCreate({ task, completed });
-    console.log(this.props);
+  onTextChange(value) {
+    this.props.taskUpdate(value);
   }
 
   render() {
     return (
-      <View>
-        <Card>
-          <TaskForm {...this.props} />
-          <CardItem>
-            <Button onPress={this.onButtonPress.bind(this)}>
-              Create
-            </Button>
-          </CardItem>
-        </Card>
-      </View>
+      <CardItem>
+        <Input
+          placeholder='Add a new to-do'
+          onChangeText={this.onTextChange.bind(this)}
+          value={this.props.newTask}
+        />
+        <Button onPress={this.onButtonPress.bind(this)}>
+          Create
+        </Button>
+      </CardItem>
     );
   }
 }
 
-const mapStateToProps = ({ form }) => {
-  const { task, completed } = form;
+const mapStateToProps = ({ newTask }) => ({ newTask });
 
-  return ({ task, completed });
-};
-
-export default connect(mapStateToProps, { taskCreate })(TaskCreate);
+export default connect(mapStateToProps, { taskCreate, taskUpdate })(TaskCreate);

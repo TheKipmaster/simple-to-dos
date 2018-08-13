@@ -4,5 +4,5 @@ import FormReducer from './FormReducer';
 
 export default combineReducers({
   todos: TodoReducer,
-  form: FormReducer
+  newTask: FormReducer
 });
