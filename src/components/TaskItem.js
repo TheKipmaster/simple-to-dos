@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
 import { CheckBox, Text } from 'react-native';
 
-import { CardItem, Button } from './common';
+import { CardItem, Button, Input } from './common';
 
 class TaskItem extends Component {
+  state = { rename: false, name: this.props.name };
+
   onDeletePress(task) {
     this.props.taskDelete(task);
   }
 
-  onRenamePress(task) {
-    console.log(task);
+  onRenamePress() {
+    this.setState({ rename: !this.state.rename });
+  }
+
+  handleRename(value) {
+    this.setState(() => ({
+      name: value,
+    }));
+
+  }
+
+  renderLabel(name) {
+    if (this.state.rename) {
+      return (
+        <Input
+          placeholder={name}
+          value={this.state.name}
+          onChangeText={this.handleRename.bind(this)}
+        />
+      );
+    }
+    return (<Text style={{ fontSize: 20 }}>{this.state.name}</Text>);
   }
 
   render() {
@@ -21,8 +43,8 @@ class TaskItem extends Component {
           value={completed}
           style={styles.checkboxStyle}
         />
-        <Text style={{ fontSize: 20 }}>{name}</Text>
-        <Button onPress={this.onRenamePress.bind(this, name)}>Rename</Button>
+        {this.renderLabel(name)}
+        <Button onPress={this.onRenamePress.bind(this)}>Rename</Button>
         <Button onPress={this.onDeletePress.bind(this, name)}>Delete</Button>
       </CardItem>
     );
