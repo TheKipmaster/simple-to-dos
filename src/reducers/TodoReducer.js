@@ -1,7 +1,8 @@
 import {
   CREATE,
   TOGGLE,
-  DELETE
+  DELETE,
+  RENAME
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -26,12 +27,11 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         [action.payload]: false
       };
-    case TOGGLE: {
+    case TOGGLE:
       return {
         ...state,
         [action.payload]: !state[action.payload]
       };
-    }
     case DELETE:
       return Object.assign(
         {},
@@ -39,6 +39,14 @@ export default (state = INITIAL_STATE, action) => {
            .filter(([k]) => k !== action.payload)
            .map(([k, v]) => ({ [k]: v }))
       );
+    case RENAME: {
+      const renameProp = (oldProp, newProp, { [oldProp]: old, ...others }) => ({
+        [newProp]: old,
+        ...others
+      });
+
+      return renameProp(action.payload.oldName, action.payload.newName, state);
+    }
     default:
       return state;
   }

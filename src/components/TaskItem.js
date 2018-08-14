@@ -10,15 +10,17 @@ class TaskItem extends Component {
     this.props.taskDelete(task);
   }
 
-  onRenamePress() {
+  onRenamePress(name) {
     this.setState({ rename: !this.state.rename });
+    if (this.state.rename) {
+      this.props.taskRename({ newName: this.state.name, oldName: name });
+    }
   }
 
   handleRename(value) {
     this.setState(() => ({
       name: value,
     }));
-
   }
 
   renderLabel(name) {
@@ -31,20 +33,20 @@ class TaskItem extends Component {
         />
       );
     }
-    return (<Text style={{ fontSize: 20 }}>{this.state.name}</Text>);
+    return (<Text style={{ fontSize: 20 }}>{name}</Text>);
   }
 
   render() {
     const { name, completed, taskToggle } = this.props;
     return (
-      <CardItem key={name}>
+      <CardItem>
         <CheckBox
           onValueChange={() => taskToggle(name)}
           value={completed}
           style={styles.checkboxStyle}
         />
         {this.renderLabel(name)}
-        <Button onPress={this.onRenamePress.bind(this)}>Rename</Button>
+        <Button onPress={this.onRenamePress.bind(this, name)}>Rename</Button>
         <Button onPress={this.onDeletePress.bind(this, name)}>Delete</Button>
       </CardItem>
     );

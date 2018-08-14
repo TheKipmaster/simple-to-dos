@@ -5,17 +5,19 @@ import { connect } from 'react-redux';
 
 import TaskCreate from './TaskCreate';
 import TaskItem from './TaskItem';
-import { taskToggle, taskDelete } from '../actions';
+import { taskToggle, taskDelete, taskRename } from '../actions';
 
 class TodoList extends Component {
 
   renderTodos() {
     const todoList = _.mapObject(this.props.todos, (completed, name) => (
       <TaskItem
+        key={name}
         completed={completed}
         name={name}
         taskDelete={this.props.taskDelete}
         taskToggle={this.props.taskToggle}
+        taskRename={this.props.taskRename}
       />
     ));
     return _.values(todoList);
@@ -37,4 +39,4 @@ const mapStateToProps = (state) => {
   return ({ todos });
 };
 
-export default connect(mapStateToProps, { taskToggle, taskDelete })(TodoList);
+export default connect(mapStateToProps, { taskToggle, taskDelete, taskRename })(TodoList);

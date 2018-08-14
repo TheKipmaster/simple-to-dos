@@ -2,7 +2,8 @@ import {
   UPDATE,
   CREATE,
   TOGGLE,
-  DELETE
+  DELETE,
+  RENAME
 } from './types';
 
 export const taskUpdate = (payload) => ({
@@ -22,5 +23,10 @@ export const taskToggle = (payload) => ({
 
 export const taskDelete = (payload) => ({
   type: DELETE,
+  payload
+});
+
+export const taskRename = (payload) => ({
+  type: RENAME,
   payload
 });
