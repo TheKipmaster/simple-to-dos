@@ -1,19 +1,21 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import TodoList from './components/TodoList';
-import { Header } from './components/common';
-import reducers from './reducers';
+import { Header, Spinner } from './components/common';
+import { store, persistor } from './configureStore';
 
 const App = () => (
-  <Provider store={createStore(reducers)}>
-    <View style={{ flex: 1 }}>
-      <Header title="To-Do List" />
-      <TodoList />
-    </View>
+  <Provider store={store}>
+    <PersistGate loading={<Spinner size="large" />} persistor={persistor}>
+      <View style={{ flex: 1 }}>
+        <Header title="To-Do List" />
+        <TodoList />
+      </View>
+    </PersistGate>
   </Provider>
 );
 
