@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CheckBox, Text } from 'react-native';
+import { CheckBox, Text, View } from 'react-native';
 
 import { CardItem, Button, Input } from './common';
 
@@ -40,14 +40,18 @@ class TaskItem extends Component {
     const { name, completed, taskToggle } = this.props;
     return (
       <CardItem>
-        <CheckBox
-          onValueChange={() => taskToggle(name)}
-          value={completed}
-          style={styles.checkboxStyle}
-        />
-        {this.renderLabel(name)}
-        <Button onPress={this.onRenamePress.bind(this, name)}>Rename</Button>
-        <Button onPress={this.onDeletePress.bind(this, name)}>Delete</Button>
+        <View style={{ ...styles.viewStyle, flex: 3 }}>
+          <CheckBox
+            onValueChange={() => taskToggle(name)}
+            value={completed}
+            style={styles.checkboxStyle}
+          />
+          {this.renderLabel(name)}
+        </View>
+        <View style={{ ...styles.viewStyle, flex: 2 }}>
+          <Button onPress={this.onRenamePress.bind(this, name)}>Rename</Button>
+          <Button onPress={this.onDeletePress.bind(this, name)}>Delete</Button>
+        </View>
       </CardItem>
     );
   }
@@ -56,6 +60,9 @@ class TaskItem extends Component {
 const styles = {
   checkboxStyle: {
     marginRight: 5,
+  },
+  viewStyle: {
+    flexDirection: 'row',
   }
 };
 
